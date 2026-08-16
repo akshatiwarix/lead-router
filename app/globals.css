@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+/*
+ * The distinction the product exists to defend is proof vs observation, so it
+ * is the design system's first axis. A proof — true of the whole lead-space,
+ * computed — is drawn with a solid rule. An observation — true of seventy
+ * authored leads, counted — is drawn dashed. The two are never given the same
+ * border, never the same heading weight, and never share a total.
+ *
+ * The second axis is what the analyser found. Uncovered space gets diagonal
+ * hatching rather than a colour, because a hole is an absence and reads as one
+ * even in greyscale; contested space gets a colour it shares with nothing else,
+ * because it is the only finding where the product is telling you the ruleset
+ * made a decision it never meant to make.
+ */
+
+:root {
+  --paper: #f4f3ef;
+  --card: #fffefb;
+  --ink: #17181c;
+  --slate: #5c6068;
+  --rule: #dedad2;
+  --rule-strong: #bdb8ad;
+
+  /* epistemic class */
+  --proof: #2f3a8c;
+  --proof-soft: #e8eaf6;
+  --observation: #8a4a2b;
+  --observation-soft: #f7ece5;
+
+  /* space-map cells */
+  --covered: #2c6a4a;
+  --covered-soft: #e4f0e9;
+  --uncovered: #85857e;
+  --uncovered-soft: #eceae5;
+  --contested: #9a6a12;
+  --contested-soft: #faf0da;
+
+  /* outcomes and severity */
+  --dead: #a32e2e;
+  --dead-soft: #f8e7e5;
+  --blocked: #6f2440;
+  --blocked-soft: #f5e6ec;
+
+  --accent: #2f3a8c;
+  --accent-soft: #e8eaf6;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-slate: var(--slate);
+  --color-rule: var(--rule);
+  --color-rule-strong: var(--rule-strong);
+  --color-proof: var(--proof);
+  --color-proof-soft: var(--proof-soft);
+  --color-observation: var(--observation);
+  --color-observation-soft: var(--observation-soft);
+  --color-covered: var(--covered);
+  --color-covered-soft: var(--covered-soft);
+  --color-uncovered: var(--uncovered);
+  --color-uncovered-soft: var(--uncovered-soft);
+  --color-contested: var(--contested);
+  --color-contested-soft: var(--contested-soft);
+  --color-dead: var(--dead);
+  --color-dead-soft: var(--dead-soft);
+  --color-blocked: var(--blocked);
+  --color-blocked-soft: var(--blocked-soft);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --font-sans: var(--font-space-grotesk);
+  --font-mono: var(--font-plex-mono);
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-space-grotesk), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Small-caps utility labels, set in the mono face so they read as instrument
+   markings rather than headings. */
+.marking {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--slate);
+}
+
+/* A hole is an absence. Hatching says so without spending a colour on it, and
+   survives a greyscale screenshot. */
+.hatch-uncovered {
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--uncovered-soft),
+    var(--uncovered-soft) 3px,
+    transparent 3px,
+    transparent 6px
+  );
+}
