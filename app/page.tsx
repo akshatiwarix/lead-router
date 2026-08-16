@@ -1,12 +1,31 @@
-export default function Home() {
+import { Console } from "./components/Console";
+import { LEADS, ORG, PRESETS, QUEUE_CATCHALL } from "@/data";
+import { decodeRuleset } from "@/lib/routing";
+
+/**
+ * The corpus is read and validated on the server; every derivation happens on
+ * the client. The engine ships to the browser on purpose — editing a rule has
+ * to re-derive every finding and every assignment with no round trip, or the
+ * analysis reads as a report about the ruleset rather than a property of it.
+ *
+ * The permalink is decoded here rather than in an effect. It is untrusted input
+ * that goes through the same Zod schema as the shipped corpus, and doing it
+ * before the first render means a bad link produces a message instead of a
+ * console that flickers from one ruleset to another.
+ */
+export default async function Home({ searchParams }: PageProps<"/">) {
+  const params = await searchParams;
+  const encoded = typeof params.r === "string" ? params.r : null;
+  const decoded = encoded ? decodeRuleset(encodeURIComponent(encoded)) : null;
+
   return (
-    <main className="mx-auto max-w-3xl px-6 py-24">
-      <p className="marking">Day 009</p>
-      <h1 className="mt-3 text-3xl font-semibold tracking-tight">Lead Router</h1>
-      <p className="mt-4 max-w-prose text-slate">
-        Scaffold. The console lands in step 12 of{" "}
-        <code className="font-mono text-sm">PLAN.md</code>.
-      </p>
-    </main>
+    <Console
+      presets={PRESETS}
+      org={ORG}
+      leads={LEADS}
+      fallbackQueueId={QUEUE_CATCHALL}
+      initialRuleset={decoded?.ok ? decoded.ruleset : null}
+      linkError={decoded && !decoded.ok ? decoded.error : null}
+    />
   );
 }

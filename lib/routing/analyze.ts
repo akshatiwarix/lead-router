@@ -81,8 +81,21 @@ function constrainedFields(rule: Rule): FieldId[] {
   return FIELD_IDS.filter((field) => rule.when[field] !== undefined);
 }
 
-const list = (items: readonly string[]) =>
-  items.length <= 1 ? (items[0] ?? "") : `${items.slice(0, -1).join(", ")} and ${items.at(-1)}`;
+/**
+ * A readable list. Capped, because a cross-cutting rule can conflict with every
+ * geographic rule below it and fifteen names is a paragraph rather than a
+ * sentence — the reader stops reading, which costs more than the omission does.
+ * The full set is always in `relatedRuleIds`, which is what the UI highlights.
+ */
+const MAX_NAMED = 4;
+
+const list = (items: readonly string[]) => {
+  if (items.length <= 1) return items[0] ?? "";
+  const shown = items.slice(0, MAX_NAMED);
+  const rest = items.length - shown.length;
+  const joined = `${shown.slice(0, -1).join(", ")} and ${shown.at(-1)}`;
+  return rest > 0 ? `${shown.join(", ")} and ${rest} more` : joined;
+};
 
 /**
  * Two rules "agree" when they would hand a lead to the same set of people. Two
