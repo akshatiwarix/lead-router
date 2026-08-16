@@ -203,7 +203,9 @@ export type Outcome =
    *  target that matches no active rep. This does *not* fall through to the
    *  rules: quietly papering over it is how the black hole survives. */
   | "BLOCKED"
-  /** No rule matched. The catch-all. */
+  /** Landed in a non-suppressing queue — either because a rule sent it there
+   *  or because no rule matched at all. `winningRuleId` tells the two apart,
+   *  and the difference matters: one is a decision, the other is a hole. */
   | "FALLBACK";
 
 export type BlockedReason = "DEPARTED_ACCOUNT_OWNER" | "EMPTY_TARGET";
