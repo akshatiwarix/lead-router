@@ -23,7 +23,7 @@ import {
   SENIORITIES,
   SOURCES,
 } from "./domains";
-import { FIELD_IDS, type FieldId } from "./types";
+import { FIELD_IDS, type FieldId, type Org, type Ruleset } from "./types";
 
 // ---------------------------------------------------------------------------
 // Constraints
@@ -245,10 +245,7 @@ export const leadsSchema = z.array(leadSchema).superRefine((leads, ctx) => {
  * is the opposite — a real, common, invisible defect — so it passes here and is
  * reported by `analyze.ts` as `NO_ELIGIBLE_OWNER`.
  */
-export function assertRulesetTargetsResolve(
-  ruleset: z.infer<typeof rulesetSchema>,
-  org: z.infer<typeof orgSchema>,
-): void {
+export function assertRulesetTargetsResolve(ruleset: Ruleset, org: Org): void {
   const repIds = new Set(org.reps.map((r) => r.id));
   const teamIds = new Set(org.teams.map((t) => t.id));
   const queueIds = new Set(org.queues.map((q) => q.id));
