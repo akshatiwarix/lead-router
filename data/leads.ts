@@ -66,7 +66,7 @@ const raw: Draft[] = [
   // ---------------------------------------------------------------------
   { id: "l-017", name: "Marta Silva", company: "Wren Hospital", emailDomain: "wren-hospital.example", country: "ES", employees: 32, industry: "healthcare", source: "demo_request", seniority: "manager", language: "es" },
   { id: "l-018", name: "Daniel Osei", company: "Quarry Civic", emailDomain: "quarry-civic.example", country: "UK", employees: 18, industry: "government", source: "content_download", seniority: "director", language: "en" },
-  { id: "l-019", name: "Hélène Girard", company: "Clinique Beaumont", emailDomain: "clinique-beaumont.example", country: "FR", employees: 12, industry: "healthcare", source: "webinar", seniority: "c_level", language: "fr" },
+  { id: "l-019", name: "Hélène Girard", company: "Clinique Beaumont", emailDomain: "clinique-beaumont.example", country: "FR", employees: 12, industry: "healthcare", source: "webinar", seniority: "director", language: "fr" },
   { id: "l-020", name: "Robert Vance", company: "Cedar County", emailDomain: "cedar-county.example", country: "US", employees: 44, industry: "government", source: "event", seniority: "manager", language: "en" },
   { id: "l-021", name: "Aiko Fischer", company: "Praxis Nord", emailDomain: "praxis-nord.example", country: "DE", employees: 7, industry: "healthcare", source: "chat", seniority: "ic", language: "de" },
   { id: "l-022", name: "Paulo Ribeiro", company: "Saúde Litoral", emailDomain: "saude-litoral.example", country: "BR", employees: 26, industry: "healthcare", source: "demo_request", seniority: "manager", language: "pt" },
