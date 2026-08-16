@@ -124,7 +124,7 @@ the region algebra in `lib/routing/`, not the UI.
 - Blast radius of an edit against the working ruleset.
 - Space map: 2-D projection of the cell grid with explicit pinned slice.
 - Editable ruleset in the browser; the engine ships to the client.
-- Corpus: ~12 reps, ~25 accounts, ~70 leads, 19-rule default ruleset, 4 preset rulesets.
+- Corpus: ~12 reps, ~26 accounts, ~70 leads, 19-rule default ruleset, 4 preset rulesets.
 - Six named traps, each with a test named after it.
 - Gemini prose → rule object, landing unrun.
 - CSV export, ruleset permalink.
@@ -382,7 +382,7 @@ Nothing else.
 
 ## The corpus and the six named traps
 
-~12 reps across 3 teams, ~25 accounts, ~70 leads, a 19-rule default ruleset, 4 preset rulesets
+~12 reps across 3 teams, ~26 accounts, ~70 leads, a 19-rule default ruleset, 4 preset rulesets
 (one per pathology). Each trap has a test named after it in `traps.test.ts`.
 
 1. **The dead rule** — a narrow rule (`FR` + enterprise) added below a broad one (`EMEA`). Fires
@@ -533,7 +533,7 @@ The structure mandated by the master backlog. The sections that carry weight her
 10. Ordered first-match-wins for the **decision**; full match set computed for the **analysis**.
 11. Ruleset is editable in-browser; the engine ships to the client; permalink-encoded.
 12. Blast radius is in, framed as an in-progress edit, not a compare view.
-13. Corpus: ~12 reps, ~25 accounts, ~70 leads, 19-rule default, 4 presets, all `.example`.
+13. Corpus: ~12 reps, ~26 accounts, ~70 leads, 19-rule default, 4 presets, all `.example`.
 14. Eight lead fields with declared domains, listed in `domains.ts` and nowhere else.
 15. Targets resolve to rep **sets**, never to a person, so `NO_ELIGIBLE_OWNER` is computable.
 16. Eight static findings (proofs) and three empirical findings (observations), never mixed.

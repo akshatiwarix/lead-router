@@ -1,6 +1,6 @@
 /**
  * The org the corpus routes into: three teams, twelve reps, two queues,
- * twenty-five accounts.
+ * twenty-six accounts.
  *
  * Two details here are load-bearing rather than flavour.
  *
@@ -179,6 +179,10 @@ const raw = {
     { domain: "castellan-bank.example", name: "Castellan Bank", ownerId: "r-priya" },
     { domain: "meridian-clinics.example", name: "Meridian Clinics", ownerId: "r-dana" },
     { domain: "orbit-analytics.example", name: "Orbit Analytics", ownerId: "r-noor" },
+    // Akira already owns the only Japanese company in the corpus that the
+    // "Japan" rule would otherwise win. The rule is perfectly live in the
+    // lead-space and has still never fired, which no static pass can know.
+    { domain: "tokyo-fabrik.example", name: "Tokyo Fabrik", ownerId: "r-akira" },
 
     // Known accounts with no owner: pre-emption does not fire, the rules run.
     { domain: "fernhill-retail.example", name: "Fernhill Retail", ownerId: null },
