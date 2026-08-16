@@ -28,7 +28,7 @@ const inherited = {
   id: "rs-inherited",
   name: "Inherited ruleset",
   description:
-    "Eighteen rules, appended to over two years. Five of the six named traps live in here.",
+    "Nineteen rules, appended to over two years. Five of the six named traps live in here.",
   rules: [
     {
       id: "rl-competitor",
@@ -102,6 +102,21 @@ const inherited = {
       name: "Rest of APAC",
       when: { country: { kind: "in", values: ["SG", "AU", "IN"] } },
       target: { kind: "rep", repId: "r-akira" },
+      enabled: true,
+    },
+    {
+      // The UK team asked for the upper half of their mid-market by name. It
+      // was written without the regulated-industry carve-out the regional rules
+      // carry, so it is not a clean refinement of the rule below — it takes a
+      // bite out of EMEA mid-market along exactly the dimensions that rule's
+      // author was reasoning about.
+      id: "rl-uk-upper-mid",
+      name: "UK upper mid-market to Priya",
+      when: {
+        country: { kind: "in", values: ["UK"] },
+        employees: { kind: "between", lo: 200, hi: 999 },
+      },
+      target: { kind: "rep", repId: "r-priya" },
       enabled: true,
     },
     {
@@ -213,7 +228,7 @@ const clean = {
   id: "rs-clean",
   name: "Clean ruleset",
   description:
-    "Total coverage, no overlap, no dead rules. The control: what the findings panel looks like when there is nothing to say.",
+    "Total coverage, no dead rules, nothing contested. The control — and it still carries three notes, because every geographic rule needs a country that enrichment has not always returned.",
   rules: [
     {
       id: "c-emea",

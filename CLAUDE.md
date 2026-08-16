@@ -98,7 +98,7 @@ cannot emit a finding that isn't a consequence of its arguments.
 | `diff.ts` | blast radius — assignments under ruleset A vs ruleset B |
 | `export.ts` | CSV serialisation, permalink encode/decode |
 
-`data/` holds the corpus (~12 reps, ~25 accounts, ~70 leads, an 18-rule default ruleset, 4
+`data/` holds the corpus (~12 reps, ~25 accounts, ~70 leads, a 19-rule default ruleset, 4
 presets). `lib/translate/` holds the Gemini call, prompt, response schema and rate limiter. `app/`
 is the single console: Ruleset · Space map · Findings · Leads.
 

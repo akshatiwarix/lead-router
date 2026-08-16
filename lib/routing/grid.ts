@@ -185,7 +185,7 @@ export function regionIsEmpty(region: Region): boolean {
 
 /**
  * Two boxes that agree on every field but one can be replaced by a single box.
- * Without this the box count grows with every subtraction and an eighteen-rule
+ * Without this the box count grows with every subtraction and a nineteen-rule
  * ruleset blows the ceiling; with it, real rulesets stay in the dozens.
  */
 function mergeOnce(region: Region): { region: Region; merged: boolean } {
@@ -315,6 +315,25 @@ function describeAtoms(field: FieldId, indices: ReadonlySet<number>, grid: Grid)
   const chosen = [...indices].sort((a, b) => a - b).map((index) => atoms[index]);
   const label = FIELD_LABELS[field];
 
+  // Prefer the complement when it is shorter and says the same thing. A guard
+  // rule at the top of a list leaves every region below it holding "seniority ∈
+  // {vp, director, manager, ic, other} or seniority unenriched", which is six
+  // items to say one thing: not C-level. The negative form is only used when
+  // the excluded atoms are all plain values and the unenriched case is on the
+  // included side, so it never has to be qualified.
+  const excluded = atoms.filter((_, index) => !indices.has(index));
+  const missingIndex = atoms.findIndex((atom) => atom.kind === "missing");
+  const missingIncluded = missingIndex === -1 || indices.has(missingIndex);
+  if (
+    excluded.length > 0 &&
+    excluded.length < chosen.length &&
+    missingIncluded &&
+    excluded.every((atom) => atom.kind === "value")
+  ) {
+    const names = excluded.map((atom) => (atom.kind === "value" ? atom.value : "")).join(", ");
+    return `${label} ∉ {${names}}`;
+  }
+
   const includesMissing = chosen.some((atom) => atom?.kind === "missing");
   const values = chosen.filter((atom) => atom?.kind === "value").map((atom) => atom!.value);
   const ranges = chosen.filter((atom) => atom?.kind === "range") as Extract<Atom, { kind: "range" }>[];
@@ -340,13 +359,30 @@ function describeAtoms(field: FieldId, indices: ReadonlySet<number>, grid: Grid)
   return parts.join(" or ");
 }
 
-export function describeBox(box: Box, grid: Grid): string {
-  const parts = FIELD_IDS.map((field) => describeAtoms(field, box[field], grid)).filter(
-    (part): part is string => part !== null,
-  );
+/**
+ * `fields` projects the description onto the dimensions the reader is asking
+ * about. Without it, describing what survives above a mid-market rule prints
+ * every field the guard rules at the top of the list happened to touch —
+ * technically complete, and unreadable. A finding about headcount should talk
+ * about headcount.
+ */
+export function describeBox(box: Box, grid: Grid, fields: readonly FieldId[] = FIELD_IDS): string {
+  const parts = fields
+    .map((field) => describeAtoms(field, box[field], grid))
+    .filter((part): part is string => part !== null);
   return parts.length === 0 ? "every lead" : parts.join(", ");
 }
 
-export function describeRegion(region: Region, grid: Grid): string[] {
-  return normalizeRegion(region).map((box) => describeBox(box, grid));
+export function describeRegion(
+  region: Region,
+  grid: Grid,
+  fields: readonly FieldId[] = FIELD_IDS,
+): string[] {
+  const described = normalizeRegion(region).map((box) => describeBox(box, grid, fields));
+  return [...new Set(described)];
+}
+
+/** `inner ⊆ outer`. */
+export function regionContains(outer: Region, inner: Region): boolean {
+  return regionIsEmpty(subtractRegion(inner, outer));
 }

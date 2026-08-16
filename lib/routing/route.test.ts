@@ -147,7 +147,9 @@ describe("purity", () => {
     // Selection fills in one field. It must not touch the outcome, the eligible
     // set or the winning rule.
     const strip = (assignments: ReturnType<typeof routeAll>) =>
-      JSON.stringify(assignments.map(({ selectedRepId: _selected, ...rest }) => rest));
+      JSON.stringify(
+        assignments.map((assignment) => ({ ...assignment, selectedRepId: "ignored" })),
+      );
     expect(strip(routeAll(LEADS, config, createSelector("FIRST_ELIGIBLE", ORG)))).toBe(
       strip(routeAll(LEADS, config, createSelector("ROUND_ROBIN", ORG))),
     );
